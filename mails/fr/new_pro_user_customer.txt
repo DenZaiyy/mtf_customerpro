@@ -1,0 +1,11 @@
+Bonjour {firstname} {lastname},
+
+Nous vous remercions pour votre inscription sur {shop_name}.
+
+Votre compte professionnel est actuellement en cours de validation par notre équipe. Vous serez notifié par email dès que votre compte sera activé.
+
+En attendant, vous ne pourrez pas vous connecter à votre compte ni effectuer d'achats sur notre site.
+
+Nous vous remercions de votre patience.
+
+{shop_name}

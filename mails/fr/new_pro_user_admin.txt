@@ -1,0 +1,21 @@
+Bonjour,
+
+Un nouveau compte professionnel vient d'être créé sur {shop_name}.
+
+Détails du compte :
+Nom : {lastname}
+Prénom : {firstname}
+Email : {email}
+Raison Sociale : {company}
+
+Adresse professionnelle :
+{address1}
+{postcode} {city}
+{country}
+
+Document KBIS :
+Le document KBIS est joint à cet email.
+
+Vous pouvez consulter ce compte dans votre back-office : {backoffice_url}
+
+{shop_name}

@@ -1,0 +1,9 @@
+Bonjour {firstname} {lastname},
+
+Nous avons le plaisir de vous informer que votre compte professionnel sur {shop_name} a été activé.
+
+Vous pouvez dès maintenant vous connecter à votre compte et profiter de tous les avantages de votre compte professionnel.
+
+{shop_url}
+
+{shop_name}
