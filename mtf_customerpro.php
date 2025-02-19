@@ -381,7 +381,7 @@ class MTF_CustomerPro extends Module
             ];
     
             // Get admin email
-            $adminEmail = "k.grischko@mtfibertech.fr";
+            $adminEmail = Configuration::get('PS_SHOP_EMAIL');
     
             // Prepare KBIS file attachment
             $fileAttachment = null;
