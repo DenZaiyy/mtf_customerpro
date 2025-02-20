@@ -25,6 +25,12 @@
 {if $isPro}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+
+            const pageTitle = document.querySelector('h1');
+            if (pageTitle) {
+                pageTitle.textContent = "Créer votre compte professionnel";
+            }
+
             // Make company field required (from default PrestaShop form)
             var companyInput = document.querySelector('input[name="company"]');
             var companyLabel = document.querySelector('label[for="field-company"]');
@@ -37,6 +43,25 @@
                 companyLabel.classList.add('required');
             }
 
+            var siretInput = document.querySelector('input[name="siret"]');
+            var siretLabel = document.querySelector('label[for="field-siret"]');
+            if (siretInput) {
+                siretInput.required = true;
+                siretInput.setAttribute('required', 'required');
+            }
+            if (siretLabel) {
+                siretLabel.textContent = "SIRET";
+                siretLabel.classList.add('required');
+            }
+
+            // Remove optionnal comment for raison sociale & siret
+            var optionnalComments = document.querySelectorAll('.form-control-comment');
+            optionnalComments.forEach(comment => {
+                if (comment.textContent.trim() === "Optionnel") {
+                    comment.remove();
+                }
+            })
+
             // Add form validation
             var form = document.querySelector('form#customer-form');
             if (form) {
@@ -46,6 +71,14 @@
                         event.preventDefault();
                         alert('Le champ Raison Sociale est obligatoire pour un compte professionnel.');
                         if (companyInput) companyInput.focus();
+                        return;
+                    }
+
+                    // Check siret field
+                    if (!siretInput || !siretInput.value.trim()) {
+                        event.preventDefault();
+                        alert('Le champ SIRET est obligatoire pour un compte professionnel.');
+                        if (siretInput) siretInput.focus();
                         return;
                     }
 

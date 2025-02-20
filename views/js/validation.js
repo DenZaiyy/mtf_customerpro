@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
             form.addEventListener("submit", function (event) {
                 const requiredFields = {
                     company: "Raison Sociale",
+                    siret: "SIRET",
                     address: "Adresse",
                     zipcode: "Code Postal",
                     city: "Ville",

@@ -84,6 +84,11 @@ class Mtf_CustomerPro extends Module
                 'label' => $this->trans('Raison Sociale', [], 'Modules.CustomerPro.Shop'),
                 "required" => $isPro
             ],
+            'siretField' => [
+                'name' => 'siret',
+                'label' => $this->trans('SIRET', [], 'Modules.CustomerPro.Shop'),
+                "required" => $isPro
+            ],
             'addressField' => [
                 'name' => 'address',
                 'label' => $this->trans('Adresse', [], 'Modules.CustomerPro.Shop')
@@ -120,6 +125,7 @@ class Mtf_CustomerPro extends Module
                 try {
                     $requiredFields = [
                         'company' => 'Raison Sociale',
+                        'siret' => 'SIRET',
                         'address' => 'Adresse',
                         'zipcode' => 'Code Postal',
                         'city' => 'Ville',
@@ -398,6 +404,7 @@ class Mtf_CustomerPro extends Module
                 '{lastname}' => $customer->lastname,
                 '{email}' => $customer->email,
                 '{company}' => $address->company,
+                '{siret}' => $customer->siret,
                 '{address1}' => $address->address1,
                 '{postcode}' => $address->postcode,
                 '{city}' => $address->city,
