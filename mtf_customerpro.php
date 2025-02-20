@@ -318,7 +318,7 @@ class Mtf_CustomerPro extends Module
                 // Store in context for later use
                 Context::getContext()->oldActiveStatus = $oldStatus;
 
-                PrestaShopLogger::addLog('Stored old active status from DB: ' . $oldStatus, 1);
+                //PrestaShopLogger::addLog('Stored old active status from DB: ' . $oldStatus, 1);
             }
         } catch (Exception $e) {
             PrestaShopLogger::addLog('Error in hookActionObjectUpdateBefore: ' . $e->getMessage(), 3);
@@ -329,7 +329,7 @@ class Mtf_CustomerPro extends Module
     public function hookActionObjectCustomerUpdateAfter($params)
     {
         try {
-            PrestaShopLogger::addLog('Starting hookActionObjectCustomerUpdateAfter', 1);
+            //PrestaShopLogger::addLog('Starting hookActionObjectCustomerUpdateAfter', 1);
             if (isset($params['object']) && $params['object'] instanceof Customer) { 
                 $customer = $params['object'];
                 $groupId = (int)Configuration::get('PS_PRO_GROUP_ID');
@@ -338,11 +338,11 @@ class Mtf_CustomerPro extends Module
 
                 // Check if this is a pro customer
                 if (in_array($groupId, $customer->getGroups())) {
-                    PrestaShopLogger::addLog('Pro customer detected', 1);
+                    //PrestaShopLogger::addLog('Pro customer detected', 1);
 
                     // Check if customer is active
                     if ($oldActiveStatus === 0 && $newActiveStatus === 1) {
-                        PrestaShopLogger::addLog('Customer activated by admin, sending email', 1);
+                        //PrestaShopLogger::addLog('Customer activated by admin, sending email', 1);
 
                         $templateVars = [
                             '{firstname}' => $customer->firstname,
@@ -367,7 +367,7 @@ class Mtf_CustomerPro extends Module
                             _PS_MODULE_DIR_ . $this->name . '/mails'
                         );
 
-                        PrestaShopLogger::addLog('Mail send result: ' . ($mailResult ? 'success' : 'failed'), 1);
+                        PrestaShopLogger::addLog('Activation mail send result: ' . ($mailResult ? 'success' : 'failed'), 1);
                     }
 
                     unset(Context::getContext()->oldActiveStatus);
