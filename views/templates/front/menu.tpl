@@ -47,7 +47,7 @@
                             <i class='material-icons'>&#xe7ff;</i>
                             S'inscrire
                 </a>
-                <a href="{$urls.pages.my_account}" class="tvaccount-pro">
+                <a href="{$urls.pages.authentication}" class="tvaccount-pro">
                     <i class='material-icons'>&#xe7ff;</i>
                             Se connecter
                         </a>
