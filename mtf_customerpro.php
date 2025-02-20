@@ -335,6 +335,7 @@ class Mtf_CustomerPro extends Module
                 $groupId = (int)Configuration::get('PS_PRO_GROUP_ID');
                 $newActiveStatus = (int)$customer->active;
                 $oldActiveStatus = (int)Context::getContext()->oldActiveStatus;
+                $loginUrl = Context::getContext()->link->getPageLink('authentication', true);
 
                 // Check if this is a pro customer
                 if (in_array($groupId, $customer->getGroups())) {
@@ -349,7 +350,7 @@ class Mtf_CustomerPro extends Module
                             '{lastname}' => $customer->lastname,
                             '{email}' => $customer->email,
                             '{shop_name}' => Configuration::get('PS_SHOP_NAME'),
-                            '{shop_url}' => Context::getContext()->link->getBaseLink(),
+                            '{shop_url}' => $loginUrl,
                             '{shop_logo}' => _PS_IMG_DIR_ . Configuration::get('PS_LOGO')
                         ];
 
