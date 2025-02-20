@@ -2,10 +2,12 @@ Bonjour {firstname} {lastname},
 
 Nous vous remercions pour votre inscription sur {shop_name}.
 
-Votre compte professionnel est actuellement en cours de validation par notre équipe. Vous serez notifié par email dès que votre compte sera activé.
+Votre compte professionnel est actuellement en cours de validation par notre équipe.
 
-En attendant, vous ne pourrez pas vous connecter à votre compte ni effectuer d'achats sur notre site.
+Merci d'attendre la réception d'un mail de confirmation (sous 24h max) pour vous connecter sur votre compte.
 
 Nous vous remercions de votre patience.
+
+NB: Pensez à consulter vos spams si vous n'avez pas reçu de confirmation sous 24h.
 
 {shop_name}

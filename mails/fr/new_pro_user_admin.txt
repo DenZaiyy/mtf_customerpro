@@ -7,10 +7,11 @@ Nom : {lastname}
 Prénom : {firstname}
 Email : {email}
 Raison Sociale : {company}
+SIRET: {siret}
 
 Adresse professionnelle :
 {address1}
-{postcode} {city}
+{postcode}, {city}
 {country}
 
 Document KBIS :
