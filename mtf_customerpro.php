@@ -20,7 +20,7 @@ class Mtf_CustomerPro extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->trans('MTF Custom Pro Account', [], 'Modules.Mtfcustomerpro.Admin');
+        $this->displayName = $this->trans('MTF - Custom Pro Account', [], 'Modules.Mtfcustomerpro.Admin');
         $this->description = $this->trans("Ajoute les champs necessaires pour l'inscription d'un compte professionnel", [], 'Modules.Mtfcustomerpro.Admin');
         $this->js_path = $this->_path . 'views/js/';
     }
