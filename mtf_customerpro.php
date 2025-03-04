@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2023 PrestaShop
  *
@@ -29,7 +30,7 @@ class Mtf_CustomerPro extends Module
     public function __construct()
     {
         $this->name = 'mtf_customerpro';
-        $this->tab = 'administration';
+        $this->tab = 'front_office_features';
         $this->version = '1.0.0';
         $this->author = 'MTFibertech';
         $this->need_instance = 0;
@@ -48,7 +49,13 @@ class Mtf_CustomerPro extends Module
 
     public function install()
     {
+        Configuration::updateValue('MTF_CUSTOMERPRO_COMPANY_NAME_ENABLED', 1);
+        Configuration::updateValue('MTF_CUSTOMERPRO_COMPANY_NAME_REQUIRED', 1);
+        Configuration::updateValue('MTF_CUSTOMERPRO_SIRET_NUMBER_ENABLED', 1);
+        Configuration::updateValue('MTF_CUSTOMERPRO_SIRET_NUMBER_REQUIRED', 1);
+
         return parent::install() &&
+            $this->installTab() &&
             $this->registerHook('displayCustomerAccountForm') &&
             $this->registerHook('actionCustomerAccountAdd') &&
             $this->registerHook('displayCustomerAccountProMenu') &&
@@ -66,7 +73,73 @@ class Mtf_CustomerPro extends Module
 
     public function uninstall()
     {
-        return parent::uninstall();
+        Configuration::deleteByName('MTF_CUSTOMERPRO_COMPANY_NAME_ENABLED');
+        Configuration::deleteByName('MTF_CUSTOMERPRO_COMPANY_NAME_REQUIRED');
+        Configuration::deleteByName('MTF_CUSTOMERPRO_SIRET_NUMBER_ENABLED');
+        Configuration::deleteByName('MTF_CUSTOMERPRO_SIRET_NUMBER_REQUIRED');
+
+        return parent::uninstall() &&
+            $this->uninstallTab();
+    }
+
+    /**
+     * Install Admin Tab
+     */
+    public function installTab()
+    {
+        // First check if mtf_tabs module exists and is installed
+        if (!Module::isInstalled('mtf_tabs')) {
+            // Fallback to IMPROVE tab
+            $tabRepository = $this->get('prestashop.core.admin.tab.repository');
+            $improveTab = $tabRepository->findOneByClassName('IMPROVE');
+            $parentId = $improveTab ? $improveTab->getId() : 0;
+        } else {
+            // Get the Configure tab ID directly from database
+            $sql = 'SELECT id_tab FROM ' . _DB_PREFIX_ . 'tab WHERE class_name = "AdminMTFConfigure"';
+            $configureId = Db::getInstance()->getValue($sql);
+
+            if (!$configureId) {
+                // Fallback to main MTF Modules tab
+                $sql = 'SELECT id_tab FROM ' . _DB_PREFIX_ . 'tab WHERE class_name = "AdminMTFModules"';
+                $configureId = Db::getInstance()->getValue($sql);
+            }
+
+            $parentId = $configureId ?: 0;
+        }
+
+        $tab = new Tab();
+        $tab->active = 1;
+        $tab->class_name = 'AdminMtfCustomerPro';
+        $tab->name = [];
+
+        foreach (Language::getLanguages(true) as $lang) {
+            $tab->name[$lang['id_lang']] = 'Customer Pro';
+        }
+
+        $tab->id_parent = $parentId;
+        $tab->module = $this->name;
+
+        return $tab->add();
+    }
+
+    /**
+     * Uninstall Tab
+     */
+    public function uninstallTab()
+    {
+        $tabRepository = $this->get('prestashop.core.admin.tab.repository');
+
+        try {
+            $tab = $tabRepository->findOneByClassName('AdminMtfCustomerPro');
+            if ($tab) {
+                $tabPS = new Tab($tab->getId());
+                return $tabPS->delete();
+            }
+        } catch (Exception $e) {
+            // Tab not found, nothing to delete
+        }
+
+        return true;
     }
 
     private function getProGroupId()
@@ -337,10 +410,11 @@ class Mtf_CustomerPro extends Module
         try {
             if (isset($params['object']) && $params['object'] instanceof Customer) {
                 // Get current status directly from database
-                $oldStatus = (int)Db::getInstance()->getValue('
+                $oldStatus = (int)Db::getInstance()->getValue(
+                    '
                     SELECT active 
-                    FROM `'._DB_PREFIX_.'customer` 
-                    WHERE id_customer = '.(int)$params['object']->id
+                    FROM `' . _DB_PREFIX_ . 'customer` 
+                    WHERE id_customer = ' . (int)$params['object']->id
                 );
                 // Store in context for later use
                 Context::getContext()->oldActiveStatus = $oldStatus;
@@ -357,7 +431,7 @@ class Mtf_CustomerPro extends Module
     {
         try {
             //PrestaShopLogger::addLog('Starting hookActionObjectCustomerUpdateAfter', 1);
-            if (isset($params['object']) && $params['object'] instanceof Customer) { 
+            if (isset($params['object']) && $params['object'] instanceof Customer) {
                 $customer = $params['object'];
                 $groupId = (int)Configuration::get('PS_PRO_GROUP_ID');
                 $newActiveStatus = (int)$customer->active;
