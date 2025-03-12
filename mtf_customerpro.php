@@ -44,7 +44,6 @@ class Mtf_CustomerPro extends Module
 
         $this->displayName = $this->trans('MTF - Custom Pro Account', [], 'Modules.Mtfcustomerpro.Admin');
         $this->description = $this->trans("Professional customer account management module with validation workflow", [], 'Modules.Mtfcustomerpro.Admin');
-        $this->js_path = $this->_path . 'views/js/';
     }
 
     public function install()
@@ -56,6 +55,7 @@ class Mtf_CustomerPro extends Module
 
         return parent::install() &&
             $this->installTab() &&
+            $this->registerHook('header') &&
             $this->registerHook('displayCustomerAccountForm') &&
             $this->registerHook('actionCustomerAccountAdd') &&
             $this->registerHook('displayCustomerAccountProMenu') &&
@@ -164,6 +164,25 @@ class Mtf_CustomerPro extends Module
         );
 
         return $groupId ?: false;
+    }
+
+    public function hookHeader()
+    {
+        if (!$this->active) {
+            return;
+        }
+
+        $this->context->controller->registerStylesheet(
+            $this->name . '-style',
+            'modules/' . $this->name . '/views/css/mtf_customerpro.css',
+            ['media' => 'all', 'priority' => 150]
+        );
+
+        $this->context->controller->registerJavascript(
+            $this->name . '-js',
+            'modules/' . $this->name . '/views/js/validation.js',
+            ['position' => 'bottom', 'priority' => 151]
+        );
     }
 
     public function hookDisplayCustomerAccountProMenu()

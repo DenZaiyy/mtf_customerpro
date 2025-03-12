@@ -1,0 +1,110 @@
+#account-pro-button {
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#account-pro-button a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #000000;
+    font-size: 14px;
+    line-height: 40px;
+    font-weight: 400;
+}
+
+#account-pro-button a:hover {
+    color: var(--color-orange);
+}
+
+#account-pro-button .tvaccount-pro i,
+#account-pro-button .tvmyaccount i {
+    font-size: 18px;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+#account-pro-button i {
+    margin-right: 5px;
+    font-size: 32px;
+    vertical-align: middle;
+}
+
+#account-pro-button span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.tvcms-header-pro {
+    position: relative;
+    cursor: pointer;
+}
+
+.tv-pro-wrapper {
+    padding: 16px 20px 16px 20px;
+}
+
+.tv-pro-btn {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: pointer;
+}
+
+.tv-pro-btn-desktop svg {
+    margin-right: 12px;
+}
+
+.tvms-header-pro .tv-pro-dropdown {
+    border-bottom-color: var(--color-orange);
+}
+
+.tvcms-header-pro .tv-pro-dropdown {
+    right: -60px;
+    left: auto;
+    top: 100%;
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    /* border-bottom: 4px solid #d90244; */
+    padding: 10px 15px;
+    min-width: 174px;
+    width: max-content;
+    background-clip: inherit;
+    box-shadow: 0px 0px 2px 0.8px rgba(122, 122, 122, 0.18);
+}
+
+.tv-pro-dropdown {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    #account-pro-button {
+        margin: 0 0 0 20px;
+    }
+    #account-pro-button span {
+        display: none;
+    }
+
+    #account-pro-button i,
+    .tv-pro-btn-desktop svg {
+        margin: 0;
+    }
+
+    .tv-pro-btn-desktop svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .tv-pro-wrapper {
+        padding: 0;
+    }
+}
